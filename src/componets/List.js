@@ -7,6 +7,19 @@ class List extends Component {
     newItens: []
   };
 
+  componentDidMount() {
+    const itens = localStorage.getItem("itens");
+    if (itens) {
+      this.setState({ itens: JSON.parse(itens) });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.itens !== this.state.itens) {
+      localStorage.setItem("itens", JSON.stringify(this.state.itens));
+    }
+  }
+
   handleInputChenges = e => {
     this.setState({ newItens: e.target.value });
   };
